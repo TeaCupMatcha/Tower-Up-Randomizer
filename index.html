@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tower Up Randomizer</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      background: #f5f5f5;
+    }
+    #map-container {
+      position: relative;
+      width: 90vw;
+      max-width: 800px;
+      margin: auto;
+    }
+    #map {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .marker {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background-color: rgba(255, 50, 50, 0.8);
+      border-radius: 50%;
+      color: white;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Tower Up Randomizer</h1>
+  <div id="map-container">
+    <img id="map" src="board.webp" alt="Game Map" />
+  </div>
+  <button onclick="randomize()">Random</button>
+
+  <script>
+    const positions = {
+      "Gray1": [170, 152], "Gray2": [267, 139], "Gray3": [116, 224], "Gray4": [200, 237],
+      "Gray5": [273, 212], "Gray6": [143, 310], "Gray7": [250, 315], "Gray8": [335, 246],
+      "Gray9": [171, 369], "Gray10": [246, 403],
+      "Brown1": [421, 198], "Brown2": [503, 218], "Brown3": [439, 287], "Brown4": [365, 351],
+      "Brown5": [447, 371], "Brown6": [383, 444], "Brown7": [458, 437], "Brown8": [457, 519],
+      "Brown9": [545, 481],
+      "Orange1": [634, 231], "Orange2": [710, 250], "Orange3": [557, 307], "Orange4": [640, 331],
+      "Orange5": [733, 315], "Orange6": [557, 389], "Orange7": [644, 427], "Orange8": [747, 393],
+      "Orange9": [727, 474],
+      "Purple1": [129, 471], "Purple2": [285, 484], "Purple3": [130, 553], "Purple4": [213, 534],
+      "Purple5": [171, 628], "Purple6": [250, 612], "Purple7": [329, 573], "Purple8": [257, 692],
+      "Purple9": [346, 664],
+      "Black1": [438, 635], "Black2": [552, 592], "Black3": [639, 539], "Black4": [422, 727],
+      "Black5": [541, 691], "Black6": [661, 623], "Black7": [501, 770], "Black8": [586, 761],
+      "Black9": [648, 703]
+    };
+
+    function randomize() {
+      const container = document.getElementById("map-container");
+      document.querySelectorAll(".marker").forEach(el => el.remove());
+      const keys = Object.keys(positions);
+      const selected = [];
+      while (selected.length < 3) {
+        const choice = keys[Math.floor(Math.random() * keys.length)];
+        if (!selected.includes(choice)) selected.push(choice);
+      }
+      selected.forEach((key, index) => {
+        const [x, y] = positions[key];
+        const marker = document.createElement("div");
+        marker.className = "marker";
+        marker.innerText = index + 1;
+        marker.style.left = (x / 864 * 100) + "%";
+        marker.style.top = (y / 864 * 100) + "%";
+        container.appendChild(marker);
+      });
+    }
+  </script>
+</body>
+</html>
