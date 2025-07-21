@@ -1,2 +1,2 @@
 # Tower-Up-Randomizer
-Oh god why am I doing this
+Why are you reading this?
